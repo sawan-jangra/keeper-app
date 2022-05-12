@@ -12,7 +12,7 @@ function Note(props) {
         }}
       >
         <DeleteIcon/>
-      </button>
+      
     </div>
   );
 }

@@ -3,13 +3,15 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
+import { v4 as uuid } from "uuid";
 
 function App() {
   const [listArr, setListArr] = useState([]);
+  const uniqId = uuid().slice(0, 8);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch("http://localhost:8080/todoArr")
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (result) => {
           console.log(result);
@@ -21,24 +23,38 @@ function App() {
         (error) => {
           console.log(error);
         }
-      )
-  },[]);
-
+      );
+  }, []);
 
   function addNotes(notes) {
-    setListArr((preValue) => {
-      return [...preValue, notes];
-    });
-  }
-  console.log(listArr);
-
-  function delNotes(index) {
-    console.log(listArr[index]);
-    const item = listArr[index].id;
-    fetch(`http://localhost:8080/todoArr/${item}`,{
-      method:"DELETE"
+    console.log(notes);
+    fetch("http://localhost:8080/todoArr/", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(notes),
     })
-      .then(res => res.json())
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          setListArr(result.todoArr);
+        },
+        
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  function delNotes(noteId) {
+    console.log(noteId);
+    fetch(`http://localhost:8080/todoArr/${noteId}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
       .then(
         (result) => {
           console.log(result);
@@ -50,24 +66,19 @@ function App() {
         (error) => {
           console.log(error);
         }
-      )
+      );
 
-    // setListArr((preValue) => {
-    //   return preValue.filter((val, iNo) => {
-    //     return iNo !== index;
-    //   });
-    // });
   }
 
   return (
     <div>
       <Header />
       <CreateArea addFn={addNotes} />
-      {listArr.map((entry, index) => {
+      {listArr.map((entry) => {
         return (
           <Note
-            key={index}
-            id={index}
+            key={entry.id}
+            id= {entry.id}
             title={entry.title}
             content={entry.content}
             delete={delNotes}

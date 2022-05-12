@@ -4,7 +4,7 @@ import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 
 function CreateArea(props) {
-  const [list, setContent] = useState({ title: "", content: "" });
+  const [list, setContent] = useState({ title: "", content: ""});
   
   // for UI design
   const [expand,setExpand] = useState(false);
@@ -14,7 +14,7 @@ function CreateArea(props) {
     setContent((preValue) => {
       return {
         ...preValue,
-        [name]: value
+        [name]: value,
       };
     });
   }

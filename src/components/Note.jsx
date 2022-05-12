@@ -4,9 +4,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function Note(props) {
   return (
     <div className="note">
-      <h1>{props.title}</h1>
+      <h1>{props.title + ":" + props.id}</h1>
       <p>{props.content}</p>
-      <button className="hello"
+      <button
         onClick={() => {
           props.delete(props.id);
         }}

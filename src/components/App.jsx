@@ -4,13 +4,14 @@ import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 import { v4 as uuid } from "uuid";
+import {API_URL} from "../utils"
 
 function App() {
   const [listArr, setListArr] = useState([]);
   const uniqId = uuid().slice(0, 8);
 
   useEffect(() => {
-    fetch("http://localhost:8080/todoArr")
+    fetch(`http://${API_URL}/todoArr`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -25,7 +26,7 @@ function App() {
 
   function addNotes(notes) {
     console.log(notes);
-    fetch("http://localhost:8080/todoArr/", {
+    fetch(`http://${API_URL}/todoArr`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -48,7 +49,7 @@ function App() {
 
   function delNotes(noteId) {
     console.log(noteId);
-    fetch(`http://localhost:8080/todoArr/${noteId}`, {
+    fetch(`http://${API_URL}/todoArr/${noteId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

@@ -11,7 +11,7 @@ function App() {
   const uniqId = uuid().slice(0, 8);
 
   useEffect(() => {
-    fetch(`http://${API_URL}/todoArr`)
+    fetch(`${API_URL}/todoArr`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -26,7 +26,7 @@ function App() {
 
   function addNotes(notes) {
     console.log(notes);
-    fetch(`http://${API_URL}/todoArr`, {
+    fetch(`${API_URL}/todoArr`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ function App() {
 
   function delNotes(noteId) {
     console.log(noteId);
-    fetch(`http://${API_URL}/todoArr/${noteId}`, {
+    fetch(`${API_URL}/todoArr/${noteId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

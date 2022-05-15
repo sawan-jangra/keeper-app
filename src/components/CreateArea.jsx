@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
@@ -28,16 +28,25 @@ function CreateArea(props) {
     setExpand(true);
   }
 
+  const inputRef = useRef(null);
+
+  useEffect(()=>{
+    if(expand){
+      inputRef.current.focus();
+    }
+  },[expand]);
+
   return (
     <div>
       <form className="create-note">
-        <input
+        {expand && <input
+          ref={inputRef}
           onChange={handleChange}
           name="title"
           value={list.title}
           placeholder="Title"
           style={{display:expand?"initial":"none"}}
-        />
+        />}
         <textarea
           onChange={handleChange}
           onClick={handleAreaClick}

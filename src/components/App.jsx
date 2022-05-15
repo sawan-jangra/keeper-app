@@ -3,12 +3,10 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
-import { v4 as uuid } from "uuid";
 import {API_URL} from "../utils"
 
 function App() {
   const [listArr, setListArr] = useState([]);
-  const uniqId = uuid().slice(0, 8);
 
   useEffect(() => {
     fetch(`${API_URL}/todoArr`)
@@ -30,7 +28,6 @@ function App() {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(notes),
     })
